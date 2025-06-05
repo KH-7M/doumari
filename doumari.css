@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f8f8f8;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: #169b16d7;
+    color: white;
+    height: 60px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: 0.3s ease-in-out;
+}
+
+.logo img {
+    height: 40px;
+    border-radius: 100px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #125f23;
+}
+
+.cta {
+    background: #226832;
+    color: #2fff8d;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.7s;
+}
+
+.cta:hover {
+    background: white;
+    color: #228B22;
+}
+
+/* Menu hamburger */
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background: #169b16d7;
+        width: 100%;
+        top: 60px;
+        left: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+}
+
+/* Hero section */
+.hero {
+    background: url('hero.webp') no-repeat center center/cover;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Services section */
+.services {
+    padding: 80px 0px 40px 0px;
+    color: rgb(7, 83, 45);
+    background-color: #fcfcfc;
+   
+}
+
+.service-box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.service {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    color: white;
+    height: 400px;
+    text-align: center;
+    align-content: end;
+}
+
+.service:nth-child(1) {
+    
+    background: url('semences.jpg') no-repeat center center/cover;
+}
+
+.service:nth-child(2) {
+    background: url('projets.jpg') no-repeat center center/cover;
+}
+
+.service:nth-child(3) {
+    background: url('equipements.webp') no-repeat center center/cover;
+}
+
+.service:hover {
+   animation-duration: 1s;
+    background-size: 220%;
+    
+   
+}
+
+.contact {
+    padding: 60px 10%;
+    background: rgb(9, 95, 19);
+    color: white;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phone{
+    display: flex;
+    width: 30%; 
+    margin-right: 5px;
+}
+
+
+
+select, .contact input, .contact textarea {
+    width: 30%;
+    padding: 10px;
+    margin: 10px 0;
+    border: solid gray;
+    border-radius: 5px;
+}
+
+.contact button {
+    background: #0c5519;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact button:hover {
+    background: white;
+    color: #228B22;
+}
+
+.animated-title {
+    font-size: 40px;
+}
+
+.animated-text {
+    margin: 20px;
+    font-size: 25px;
+}
+
+.carousel-container {
+    height: 300px;
+    width: 99%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-track {
+    display: flex;
+    width: 150%; /* Largeur double pour permettre le défilement */
+    animation: scroll 25s linear infinite;
+}
+
+.carousel-track:hover {
+    animation-play-state: paused; /* Pause au survol */
+}
+
+.carousel-item {
+    padding: 10px;
+    flex: 0 0 20%; /* 4 images visibles simultanément */
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 200px;
+    display: block; /* Assure que l'image occupe tout l'espace sans marges */
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item img:hover {
+    transform: scale(1.05);
+}
+
+
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-87.5%); } /* Décalage pour créer un effet de boucle */
+}

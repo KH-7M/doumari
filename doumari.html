@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doumari - Agriculture de Qualité</title>
+    <link rel="stylesheet" href="doumari.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="logos.jpg" alt="Doumari"></div>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Nos Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">&#9776;</div>
+    </header>
+
+    <section id="accueil" class="hero">
+        <h1 class="animated-title">Bienvenue chez Doumari</h1>
+        <p class="animated-text">Votre expert en semences, équipements et projets agricoles.</p>
+        <a href="#services" class="cta">Découvrir nos services</a>
+    </section>
+
+
+    
+    <section id="services" class="services">
+        <h2>Nos Services</h2>
+        <div class="service-box">
+            <div class="service">
+                <h3>Vente de Semences</h3>
+                <p>Des semences de haute qualité adaptées à vos besoins agricoles.</p>
+            </div>
+            <div class="service">
+                <h3>Projets Agricoles</h3>
+                <p>Accompagnement et réalisation de vos projets d'exploitation.</p>
+            </div>
+            <div class="service">
+                <h3>Équipements Agricoles</h3>
+                <p>Un large choix de matériel et outils pour optimiser vos cultures.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="carousel-container">
+        <div class="carousel-track">
+            <div class="carousel-item"><img src="projets.jpeg" alt="Image 1"></div>
+            <div class="carousel-item"><img src="semences.jpg" alt="Image 2"></div>
+            <div class="carousel-item"><img src="equipements.webp" alt="Image 3"></div>
+            <div class="carousel-item"><img src="logo.jpg" alt="Image 4"></div>
+            
+            <!-- Double des images pour l'effet de boucle -->
+            <div class="carousel-item"><img src="moto.jpg" alt="Image 1"></div>
+            <div class="carousel-item"><img src="semoire.jpg" alt="Image 2"></div>
+            <div class="carousel-item"><img src="equipements.webp" alt="Image 3"></div>
+            <div class="carousel-item"><img src="logo.jpg" alt="Image 4"></div>
+
+            <div class="carousel-item"><img src="projets.jpeg" alt="Image 1"></div>
+            <div class="carousel-item"><img src="semences.jpg" alt="Image 2"></div>
+            <div class="carousel-item"><img src="equipements.webp" alt="Image 3"></div>
+            <div class="carousel-item"><img src="logo.jpg" alt="Image 4"></div>
+            
+            <!-- Double des images pour l'effet de boucle -->
+            <div class="carousel-item"><img src="mo.jpeg" alt="Image 1"></div>
+            <div class="carousel-item"><img src="semences.jpg" alt="Image 2"></div>
+            <div class="carousel-item"><img src="equipements.webp" alt="Image 3"></div>
+            <div class="carousel-item"><img src="logo.jpg" alt="Image 4"></div>
+        </div>
+    </div>
+
+
+    <section id="contact" class="contact">
+        <h2>Contactez-nous</h2>
+        <p>Nous sommes à votre disposition pour répondre à toutes vos questions.</p>
+        <form>
+            <input type="text"  placeholder="Prenom et Nom" required>
+         
+         <div class="phone">
+            <select class="phone">
+                <option value="+223">+223</option>
+                <option value="+226">+226</option>
+                <option value="+225">+225</option>
+                <option value="+227">+227</option>
+            </select>
+            <input type="tel" style="width:70%;" maxlength="8n°" placeholder="Votre numéro" required>
+        </div>
+
+
+            <textarea placeholder="Votre message" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <script>
+        gsap.from(".animated-title", {opacity: 0, y: -100, duration: 2});
+        gsap.from(".animated-text", {opacity: 0, y: 100, duration: 2, delay: 0.5});
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".service", {
+         opacity: 0,
+         x: -100,
+         duration: 1.5,
+         stagger: 0.3,
+         scrollTrigger: {
+             trigger: ".service-box",
+             start: "top 80%", // Déclenchement lorsque 90% de la section est visible
+             toggleActions: "play none none none"
+    }
+});
+const carouselTrack = document.querySelector('.carousel-track');
+
+        carouselTrack.addEventListener('mouseenter', () => {
+            carouselTrack.style.animationPlayState = 'paused';
+        });
+
+        carouselTrack.addEventListener('mouseleave', () => {
+            carouselTrack.style.animationPlayState = 'running';
+        });
+ // Cibler le bouton hamburger et la liste de navigation
+ const menuToggle = document.querySelector('.menu-toggle');
+    const navList = document.querySelector('nav ul');
+
+    // Ajouter un événement pour ouvrir/fermer le menu
+    menuToggle.addEventListener('click', function() {
+        navList.classList.toggle('active');  // Basculer la classe 'active' pour afficher/masquer
+    });
+    </script>
+</body>
+</html>
