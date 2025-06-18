@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doumari - Agriculture de Qualité</title>
+    <!-- Liens vers les bibliothèques externes (icônes et animations) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Styles globaux et réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        body {
+            background: #f8f8f8;
+            color: #333;
+            text-align: center;
+        }
+
+        /* En-tête du site (barre de navigation) */
+        header {
+            background: #04bb03;
+            position: fixed;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5% 5% 0px;
+            color: white;
+            height: 60px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition: 0.3s ease-in-out;
+        }
+
+        .logo img {
+            height: clamp(40px, 8vw, 52px);
+            border-radius: 50px;
+            justify-content: center;
+        }
+
+        /* Navigation principale */
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #125f23;
+        }
+
+        /* Bouton d'appel à l'action */
+        .cta {
+            background: #226832;
+            color: #2fff8d;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.7s;
+        }
+
+        .cta:hover {
+            background: white;
+            color: #228B22;
+        }
+
+        /* Menu burger pour mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Responsive : navigation mobile */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #169b16d7;
+                width: 100%;
+                top: 60px;
+                left: 0;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 40px;
+                font-weight: bold;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+        }
+
+        /* Section d'accueil avec image de fond */
+        .hero {
+            background: url('hero.webp') no-repeat center center/cover;
+            background-attachment: fixed;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 35px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        /* Section services */
+        .services {
+            height: auto;
+            width: 100%;
+            padding: 15px 10px 40px;
+            color: rgb(7, 83, 45);
+            background-color: #ededed;
+            font-family: serif;
+            position: relative;
+        }
+
+        .service-box {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .service {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            color: white;
+            height: 400px;
+            text-align: center;
+            font-family: serif;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Carousel d'images */
+        .carousel-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #04bb03;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .prev-arrow {
+            left: 10px;
+        }
+
+        .next-arrow {
+            right: 10px;
+        }
+
+        .carousel-arrow:hover {
+            background: green;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #04bb03;
+        }
+
+        .carousel-title {
+            font-size: 2em;
+            color: #169b16;
+            margin: 40px 0 10px 0;
+            font-family: serif;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-item {
+                flex: 0 0 33.3333%;
+            }
+
+            .carousel-arrow {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                top: 45%;
+                color: #fff;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .carousel-item img {
+                height: 250px;
+            }
+
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        /* Bouton WhatsApp flottant */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #04bb03;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background: #085813;
+        }
+
+        /* Pied de page */
+        footer {
+            background: #169b16d7;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            border-bottom: 2px solid white;
+            padding-bottom: 5px;
+        }
+
+        .footer-section p {
+            margin: 10px 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .fa-facebook,
+        .fa-twitter,
+        .fa-instagram {
+            margin-right: 30px;
+            font-size: 25px;
+        }
+
+        .fa-facebook {
+            color: #003feb;
+        }
+
+        .fa-twitter {
+            color: #0463d6;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Bouton WhatsApp flottant -->
+    <a href="https://wa.me/22377767628" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp fa-2x"></i>
+    </a>
+
+    <!-- En-tête et navigation -->
+    <header>
+        <div class="logo"><img src="logo.jpg" alt="Doumari Agriculture logo" /></div>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Nos Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">&#9776;</div>
+    </header>
+
+    <!-- Section d'accueil (hero) -->
+    <section id="accueil" class="hero">
+        <h1 class="animated-title">Bienvenue chez Doumari</h1>
+        <p class="animated-text">Votre expert en semences, équipements et projets agricoles.</p>
+        <a href="#services" class="cta">Découvrir nos services</a>
+    </section>
+
+    <!-- Section des services -->
+    <section id="services" class="services">
+        <h2 class="carousel-title">Nos Services</h2>
+        <div class="service-box">
+            <div class="service" style="background-image: url('semences.jpg')">
+                <h3>Vente de Semences</h3>
+                <p>Des semences de haute qualité adaptées à vos besoins agricoles.</p>
+            </div>
+            <div class="service" style="background-image: url('serre.jpg')">
+                <h3>Projets Agricoles</h3>
+                <p>Accompagnement et réalisation de vos projets d'exploitation.</p>
+            </div>
+            <div class="service" style="background-image: url('tracteur.avif')">
+                <h3>Équipements Agricoles</h3>
+                <p>Un large choix de matériel et outils pour optimiser vos cultures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel d'images de réalisations ou produits -->
+    <h2 class="carousel-title">L’agriculture, une passion qui nourrit le monde.</h2>
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow prev-arrow">&#10094;</button>
+            <div class="carousel-track">
+                <div class="carousel-item active">
+                    <img src="mahindra.jpg" alt="Projet">
+                </div>
+                <div class="carousel-item">
+                    <img src="herbe.jpg" alt="Semences">
+                </div>
+                <div class="carousel-item">
+                    <img src="logos.jpg" alt="Logo">
+                </div>
+                <div class="carousel-item">
+                    <img src="semoire.jpg" alt="Équipements">
+                </div>
+                <div class="carousel-item">
+                    <img src="moto.jpg" alt="Moto">
+                </div>
+                <div class="carousel-item">
+                    <img src="machine.webp" alt="Semoir">
+                </div>
+            </div>
+            <button class="carousel-arrow next-arrow">&#10095;</button>
+        </div>
+        <div class="carousel-dots"></div>
+    </div>
+
+    <!-- Pied de page avec informations de contact et réseaux sociaux -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Doumari Agriculture</h3>
+                <p>Experts en solutions agricoles depuis 2010</p>
+                <p>Engagement pour la qualité et le développement durable</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-phone"></i> +223 77 76 76 28</p>
+                <p><i class="fas fa-envelope"></i> contact@doumari-agri.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Bamako, Mali</p>
+            </div>
+            <div class="footer-section">
+                <h3>Réseaux sociaux</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Doumari Agriculture. Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Script pour les animations et le carousel -->
+    <script>
+        // Animation GSAP pour le titre et le texte d'accueil
+        gsap.from(".animated-title", { opacity: 0, y: -100, duration: 2 });
+        gsap.from(".animated-text", { opacity: 0, y: 100, duration: 2, delay: 0.5 });
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animation GSAP pour chaque box service individuellement
+        gsap.utils.toArray('.service').forEach(service => {
+            gsap.from(service, {
+                opacity: 0,
+                x: -100,
+                duration: 1.2,
+                scrollTrigger: {
+                    trigger: service,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+
+
+        // Gestion du menu burger pour mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navList = document.querySelector('nav ul');
+        menuToggle.addEventListener('click', () => navList.classList.toggle('active'));
+
+        // Fermeture du menu après clic sur un lien (mobile)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navList.classList.remove('active');
+                }
+            });
+        });
+
+        // Carousel d'images avec navigation et dots
+        document.addEventListener('DOMContentLoaded', function () {
+            const track = document.querySelector('.carousel-track');
+            const items = document.querySelectorAll('.carousel-item');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            let currentIndex = 0;
+            let slidesPerView = window.innerWidth >= 768 ? 3 : 1;
+
+            // Création des points de navigation (dots)
+            function createDots() {
+                dotsContainer.innerHTML = '';
+                const numDots = Math.ceil(items.length / slidesPerView);
+                for (let i = 0; i < numDots; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('carousel-dot');
+                    if (i === currentIndex) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            document.querySelector('.prev-arrow').addEventListener('click', prevSlide);
+            document.querySelector('.next-arrow').addEventListener('click', nextSlide);
+
+            window.addEventListener('resize', () => {
+                slidesPerView = window.innerWidth >= 768 ? 3 : 1;
+                currentIndex = 0;
+                createDots();
+                updateCarousel();
+            });
+
+            // Mise à jour du carousel (défilement)
+            function updateCarousel() {
+                const itemWidth = 100 / slidesPerView;
+                const offset = -currentIndex * itemWidth * slidesPerView;
+                track.style.transform = `translateX(${offset}%)`;
+                updateDots();
+            }
+
+            // Mise à jour des dots actifs
+            function updateDots() {
+                document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            // Slide suivant
+            function nextSlide() {
+                const numGroups = Math.ceil(items.length / slidesPerView);
+                currentIndex = (currentIndex + 1) % numGroups;
+                updateCarousel();
+            }
+
+            // Slide précédent
+            function prevSlide() {
+                const numGroups = Math.ceil(items.length / slidesPerView);
+                currentIndex = (currentIndex - 1 + numGroups) % numGroups;
+                updateCarousel();
+            }
+
+            // Aller à un slide précis
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+
+            createDots();
+
+            // Gestion du swipe mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            track.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            track.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) nextSlide();
+                if (touchEndX - touchStartX > 50) prevSlide();
+            });
+        });
+    </script>
+</body>
+
+</html>
